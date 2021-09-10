@@ -87,6 +87,30 @@ def is_prime(num):
     else:
         return False
 
+def get_prime():
+    prime_list = []
+    value = 100
+    multiplier = 0.1
+    while value < 2000:
+        is_prime = True
+        limit = int(value * multiplier)
+        if value % 2 != 0:
+            for i in range(3, limit + 1, 2):
+                if value % i == 0:
+                    is_prime = False
+                    break
+        else:
+            is_prime = False
+        if is_prime:
+            prime_list.append(value)
+        value += 1
+    prime1 = prime_list[random.randrange(len(prime_list))]
+    prime2 = prime_list[random.randrange(len(prime_list))]
+    while prime1 == prime2:
+        prime1 = prime_list[random.randrange(len(prime_list))]
+        prime2 = prime_list[random.randrange(len(prime_list))]
+    return prime1, prime2
+
 def try_parse_int(val):
     try:
         int(val)
@@ -97,16 +121,21 @@ def try_parse_int(val):
 separator_list, separators = build_separators()
 # print(separators)
 
-p = input('Digite o primeiro número primo: ')
-q = input('Digite o segundo número primo: ')
+# p = input('Digite o primeiro número primo: ')
+# q = input('Digite o segundo número primo: ')
 
-while len(p) == 0 or len(q) == 0 or len(p) < 3 or len(q) < 3 or not try_parse_int(p) or not try_parse_int(q) or not is_prime(int(p)) or not is_prime(int(q)):
-    if len(p) < 3 or len(q) < 3:
-        print('Os números devem conter 3 dígitos ou mais!')
-    elif len(p) == 0 or len(q) == 0 or not try_parse_int(p) or not try_parse_int(q) or not is_prime(int(p)) or not is_prime(int(q)):
-        print('Um dos valores não é primo! Digite novamente...')
-    p = input('Digite o primeiro número primo: ')
-    q = input('Digite o segundo número primo: ')
+# while len(p) == 0 or len(q) == 0 or len(p) < 3 or len(q) < 3 or not try_parse_int(p) or not try_parse_int(q) or not is_prime(int(p)) or not is_prime(int(q)):
+#     if len(p) < 3 or len(q) < 3:
+#         print('Os números devem conter 3 dígitos ou mais!')
+#     elif len(p) == 0 or len(q) == 0 or not try_parse_int(p) or not try_parse_int(q) or not is_prime(int(p)) or not is_prime(int(q)):
+#         print('Um dos valores não é primo! Digite novamente...')
+#     p = input('Digite o primeiro número primo: ')
+#     q = input('Digite o segundo número primo: ')
+
+p, q = get_prime()
+
+print('p => ' + str(p))
+print('q => ' + str(q))
 
 n, e, d = build_keys(int(p), int(q))
 
