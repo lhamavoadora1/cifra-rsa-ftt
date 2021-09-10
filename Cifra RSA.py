@@ -121,6 +121,8 @@ def try_parse_int(val):
 separator_list, separators = build_separators()
 # print(separators)
 
+input('Cifra RSA\n\nPressione Enter para executar...')
+
 p, q = get_prime()
 
 print('p => ' + str(p))
