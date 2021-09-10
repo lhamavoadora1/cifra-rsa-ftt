@@ -91,7 +91,7 @@ def get_prime():
     prime_list = []
     value = 100
     multiplier = 0.1
-    while value < 2000:
+    while value < 1000:
         is_prime = True
         limit = int(value * multiplier)
         if value % 2 != 0:
