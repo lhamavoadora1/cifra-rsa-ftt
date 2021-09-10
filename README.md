@@ -1,7 +1,7 @@
 O programa foi feito em Python e seu controle é por teminal.
 
 O programa começa selecionando dois números primos aleatórios para serem usados como os valores "p" e "q".
-Os números variam de uma escala de 100 a 2000 para garantir a integridade da mensagem e não exigir processamento computacional excessivo nas próximas etapas.
+Os números variam de uma escala de 100 a 1000 para garantir a integridade da mensagem e não exigir processamento computacional excessivo nas próximas etapas.
 
 Os valores da chave pública "n" e "e" e da chave privada "d" devem ser calculados da seguinte forma:
 
