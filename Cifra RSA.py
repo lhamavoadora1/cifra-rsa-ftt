@@ -121,17 +121,6 @@ def try_parse_int(val):
 separator_list, separators = build_separators()
 # print(separators)
 
-# p = input('Digite o primeiro número primo: ')
-# q = input('Digite o segundo número primo: ')
-
-# while len(p) == 0 or len(q) == 0 or len(p) < 3 or len(q) < 3 or not try_parse_int(p) or not try_parse_int(q) or not is_prime(int(p)) or not is_prime(int(q)):
-#     if len(p) < 3 or len(q) < 3:
-#         print('Os números devem conter 3 dígitos ou mais!')
-#     elif len(p) == 0 or len(q) == 0 or not try_parse_int(p) or not try_parse_int(q) or not is_prime(int(p)) or not is_prime(int(q)):
-#         print('Um dos valores não é primo! Digite novamente...')
-#     p = input('Digite o primeiro número primo: ')
-#     q = input('Digite o segundo número primo: ')
-
 p, q = get_prime()
 
 print('p => ' + str(p))
@@ -143,6 +132,8 @@ print()
 print('n => ' + str(n))
 print('e => ' + str(e))
 print('d => ' + str(d))
+print()
+print('O processamento pode levar até dois minutos, aguarde por favor...')
 print()
 print('Mensagem:\n' + str(message))
 print()
@@ -172,7 +163,3 @@ for c in decrypted_message_list:
 print('Mensagem criptografada (com separadores):\n' + str(encrypted_message))
 print()
 print('Mensagem descriptografada:\n' + decrypted_message)
-
-# é permitido apenas números primos acima de 3 dígitos
-# números primos de 100 a 2000 são os mais recomendados por não necessitarem de muito processamento
-# e não comprometerem a integridade dos dados
