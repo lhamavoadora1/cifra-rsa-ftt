@@ -1,6 +1,8 @@
 import re
 import random
 
+message = 'The information security is of significant importance to ensure the privacy of communications'
+
 def shuffle(text):
     val = random.randint(0, 1)
     if val == 0:
@@ -18,27 +20,6 @@ def build_separators():
         separator = shuffle(separator)
         separator_list.append(separator)
     return separator_list, divider.join(separator_list)
-
-separator_list, separators = build_separators()
-# print(separators)
-
-# coprimo é um número que todos os seus divisores não coincidem entre si exceto pelo número 1
-# 4 é coprimo de 5, pois 4 => 1, 2, 4 e 5 => 1, 5
-# 8 é coprimo de 9, pois 8 => 1, 2, 4, 8 e 9 => 1, 3, 9
-# phi é igual a quantidade de números menores que n, coprimos com respeito a ele
-
-# se x é primo, então phi_x = x - 1
-
-# selecionar dois primos p e q
-# fazer o cálculo n = p * q
-
-# escolher um número inteiro e que esteja entre 1 e phi(n) que deve ser coprimo com phi(n)
-# calcule d = (2 * phi(n) + 1) / e
-# chave pública é composta por n e e
-# chave privada é composta por d
-
-# cifrar a mensagem c = m**e mod n
-# decifrar a mensagem m = c**d mod n
 
 def is_coprime(num1, num2):
     # print('checking if ' + str(num1) + ' and ' + str(num2) + ' are coprimes')
@@ -92,16 +73,50 @@ def decrypt(c, n, d):
     message = chr(int(decrypted_message))
     return message
 
-p = int(input('Digite o primeiro número primo: '))
-q = int(input('Digite o segundo número primo: '))
+def is_prime(num):
+    is_prime = True
+    limit = int(num * 0.1)
+    if num % 2 != 0:
+        for i in range(3, limit + 1, 2):
+            if num % i == 0:
+                return False
+    else:
+        return False
+    if is_prime:
+        return True
+    else:
+        return False
 
-n, e, d = build_keys(p, q)
+def try_parse_int(val):
+    try:
+        int(val)
+        return True
+    except:
+        return False
+
+separator_list, separators = build_separators()
+# print(separators)
+
+p = input('Digite o primeiro número primo: ')
+q = input('Digite o segundo número primo: ')
+
+while len(p) == 0 or len(q) == 0 or len(p) < 3 or len(q) < 3 or not try_parse_int(p) or not try_parse_int(q) or not is_prime(int(p)) or not is_prime(int(q)):
+    if len(p) < 3 or len(q) < 3:
+        print('Os números devem conter 3 dígitos ou mais!')
+    elif len(p) == 0 or len(q) == 0 or not try_parse_int(p) or not try_parse_int(q) or not is_prime(int(p)) or not is_prime(int(q)):
+        print('Um dos valores não é primo! Digite novamente...')
+    p = input('Digite o primeiro número primo: ')
+    q = input('Digite o segundo número primo: ')
+
+n, e, d = build_keys(int(p), int(q))
+
+print()
 print('n => ' + str(n))
 print('e => ' + str(e))
 print('d => ' + str(d))
-
-message = 'The information security is of significant importance to ensure the privacy of communications'
-print('Mensagem => ' + str(message))
+print()
+print('Mensagem:\n' + str(message))
+print()
 
 encrypted_message_list = []
 for m in message:
@@ -110,15 +125,13 @@ for m in message:
     # print('encrypted \'%s\'' %m_encrypted)
     encrypted_message_list.append(m_encrypted)
 
-print(encrypted_message_list)
+# print(encrypted_message_list)
 encrypted_message = encrypted_message_list[0]
 for i in range(1, len(encrypted_message_list)):
     encrypted_message += separator_list[random.randrange(0, 50)] + encrypted_message_list[i]
-# encrypted_message = separator_list[random.randrange(0, 50)].join(encrypted_message_list)
 
 decrypted_message_list = re.split(separators, encrypted_message)
-print(decrypted_message_list)
-# print('decrypted_message_list => ' + ''.join(decrypted_message_list))
+# print(decrypted_message_list)
 
 decrypted_message = ''
 for c in decrypted_message_list:
@@ -127,9 +140,10 @@ for c in decrypted_message_list:
     # print('decrypted \'%s\'' %m_decrypted)
     decrypted_message += m_decrypted
 
-print('Mensagem criptografada => ' + str(encrypted_message))
-print('Mensagem descriptografada => ' + ''.join(decrypted_message))
+print('Mensagem criptografada (com separadores):\n' + str(encrypted_message))
+print()
+print('Mensagem descriptografada:\n' + decrypted_message)
 
-# checar se os números são primos!
-# 127
-# 149
+# é permitido apenas números primos acima de 3 dígitos
+# números primos de 100 a 2000 são os mais recomendados por não necessitarem de muito processamento
+# e não comprometerem a integridade dos dados
